@@ -460,6 +460,30 @@ Candidate bench devices currently documented:
 
 These are candidates only and remain subject to real-hardware validation.
 
+## 16B. Expanded pin-6 waveform families
+
+The pin-6 experiment now distinguishes four waveform families independently of gain:
+
+- **P+** — black anchored at a DC level, picture moves upward;
+- **P-** — black anchored at a DC level, picture moves downward;
+- **P±** — picture centered around the DC operating point;
+- **FS** — large ground-referenced/full-scale swing such as approximately 0..8 V.
+
+For P±, two interpretations must remain separate until measured:
+
+- 1.5 Vpp total centered around the offset;
+- literal ±1.5 V around the offset, which is 3.0 Vpp total.
+
+The controlled A/B bench already documented tests only the first subproblem: positive-going, black-anchored unity-vs-gain. It is now explicitly Phase 1.
+
+The full hypothesis and measurement matrix is:
+
+`hardware/pin6-waveform-hypotheses-v0.1.md`
+
+The decisive classification capture must be DC-coupled. AC coupling is useful for excursion amplitude but cannot establish whether the waveform is black-anchored, inverted, centered, or ground-referenced.
+
+The 0..8-V full-scale hypothesis is considered the highest-risk bench case and remains dummy-load-only unless original receiver measurements explicitly support it.
+
 ## 17. Decision order for pin-6 design
 
 Engineering order:
