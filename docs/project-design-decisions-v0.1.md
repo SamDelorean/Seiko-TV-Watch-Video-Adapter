@@ -437,6 +437,29 @@ Possible implementations:
 
 ---
 
+## 16A. Controlled A/B conditioning bench
+
+A concrete comparison circuit is now defined in:
+
+`hardware/video-conditioning-dual-path-test-v0.1.md`
+
+It uses one common downstream keyed-bias/output section and switches only the video slope:
+
+```text
+MODE A = UNITY + BIAS
+MODE B = 2.15x + BIAS (initial provisional test value)
+```
+
+This keeps the experimental variables orthogonal. The first test does not simultaneously vary polarity.
+
+Candidate bench devices currently documented:
+
+- OPA810-class wideband RRIO video amplifier/buffer;
+- OPA197-class precision bias-reference buffer;
+- TMUX621x-class high-voltage logic-controlled clamp switch.
+
+These are candidates only and remain subject to real-hardware validation.
+
 ## 17. Decision order for pin-6 design
 
 Engineering order:
