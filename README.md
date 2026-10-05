@@ -55,6 +55,8 @@ Candidate source paths are documented in [docs/input-paths.md](docs/input-paths.
 
 The Seiko's analog LVD sampling model is summarized in [docs/lvd-sampling.md](docs/lvd-sampling.md).
 
+The consolidated, authoritative idea/decision log is [docs/project-design-decisions-v0.1.md](docs/project-design-decisions-v0.1.md). New architectural ideas, alternatives and safety constraints should be recorded there or in the linked subsystem documents rather than remaining only in chat history.
+
 ## Important rule
 
 No signal is to be applied to an original watch until the corresponding voltage, polarity, impedance and waveform have been verified against an original receiver with an oscilloscope.
