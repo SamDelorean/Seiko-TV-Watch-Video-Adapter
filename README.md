@@ -51,7 +51,7 @@ See [docs/interface.md](docs/interface.md) for the evidence model and electrical
 
 The source-independent station is defined in [hardware/universal-cvbs-bench-v0.1.md](hardware/universal-cvbs-bench-v0.1.md).
 
-Candidate source paths are documented in [docs/input-paths.md](docs/input-paths.md). The Game Boy/RP2C02 route is cross-linked in [docs/gameboy-rp2c02-integration.md](docs/gameboy-rp2c02-integration.md), with its sync-completion decision in [hardware/gameboy-rp2c02-sync-v0.1.md](hardware/gameboy-rp2c02-sync-v0.1.md). The first Raspberry Pi source implementation is [raspberry/zero2w-cvbs-source-v0.1.md](raspberry/zero2w-cvbs-source-v0.1.md).
+Candidate source paths are documented in [docs/input-paths.md](docs/input-paths.md). The Game Boy/RP2C02 route is cross-linked in [docs/gameboy-rp2c02-integration.md](docs/gameboy-rp2c02-integration.md), with its sync-completion decision in [hardware/gameboy-rp2c02-sync-v0.1.md](hardware/gameboy-rp2c02-sync-v0.1.md). The first Raspberry Pi source implementation is [raspberry/zero2w-cvbs-source-v0.1.md](raspberry/zero2w-cvbs-source-v0.1.md). The Raspberry is further defined as a dedicated calibration/diagnostic appliance in [raspberry/calibration-station-v0.1.md](raspberry/calibration-station-v0.1.md), with the first Seiko-specific pattern suite in [tests/pattern-catalog-v0.1.md](tests/pattern-catalog-v0.1.md).
 
 The Seiko's analog LVD sampling model is summarized in [docs/lvd-sampling.md](docs/lvd-sampling.md).
 
