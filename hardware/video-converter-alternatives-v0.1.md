@@ -14,6 +14,8 @@ These cases can look similar on a simple oscilloscope capture but require differ
 
 This document therefore defines one implementation candidate for each hypothesis.
 
+The concrete controlled A/B bench that compares unity-plus-bias against gain-plus-bias is documented in [`video-conditioning-dual-path-test-v0.1.md`](video-conditioning-dual-path-test-v0.1.md).
+
 ---
 
 # DESIGN A — DC bias / level translation only
