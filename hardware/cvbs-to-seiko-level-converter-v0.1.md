@@ -74,6 +74,8 @@ The output stage may use a transistor or amplifier referenced to one of the rece
 
 These hypotheses are electrically different even though all can produce a waveform that looks like a video signal riding on a high DC level.
 
+Separate candidate circuits, selection criteria and safety warnings for H1/H2/H3 are documented in [`video-converter-alternatives-v0.1.md`](video-converter-alternatives-v0.1.md).
+
 ## 4. Required transfer function
 
 Regardless of implementation, the external behavior can be represented as an affine transformation:
