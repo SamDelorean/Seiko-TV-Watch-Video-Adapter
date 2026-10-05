@@ -2,6 +2,8 @@
 
 Status: **concrete bench design for comparing UNITY+BIAS vs GAIN+BIAS; Seiko still disconnected**
 
+This document is **Phase 1** of the broader pin-6 waveform characterization. The complete polarity/centering matrix is defined in [`pin6-waveform-hypotheses-v0.1.md`](pin6-waveform-hypotheses-v0.1.md).
+
 ## 1. Question being tested
 
 The two leading linear hypotheses for Seiko pin 6 are:
