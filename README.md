@@ -4,32 +4,34 @@ Reverse-engineering and hardware/software project for a **modern display, diagno
 
 ## Goal
 
-Build a reversible bench/display station around the original Seiko TV Watch connector. The station should support several use cases: preservation-friendly exhibition, electrical diagnosis and repair, interface characterization, test-pattern injection, and experimental connection to modern video sources such as Raspberry Pi or the Game Boy/RP2C02 project. MP4/H.264 playback is one demonstration path, not the sole purpose of the project.
+Build a reversible bench/display station around the original Seiko TV Watch connector. The station should support preservation-friendly exhibition, electrical diagnosis and repair, interface characterization, test-pattern injection, and experimental connection to modern video sources.
 
-The preferred architecture is:
+The preferred architecture is now source-independent:
 
 ```text
-MP4 file
-   |
-Raspberry Pi / video source
-   |
-NTSC composite generation
-   |
-+-----------------------+
-| interface electronics |
-| - video conditioning  |
-| - sync conditioning   |
-| - power rails         |
-+-----------------------+
-   |
-original Seiko cable
-   |
-Seiko TV Watch
+Game Boy / RP2C02 --\
+Raspberry Pi --------+--> standard CVBS input
+DVD / camera --------/          |
+pattern generator ---/          v
+                         UNIVERSAL TEST STATION
+                         - 75-ohm / Hi-Z input
+                         - sync separation
+                         - video conditioning
+                         - 4.1 / 8.9 / 13.2 V rails
+                         - independent audio path
+                                  |
+                                  v
+                        original Seiko connector
+                                  |
+                                  v
+                           Seiko TV Watch
 ```
+
+MP4/H.264 playback through Raspberry Pi is one demonstration path, not the sole purpose of the project.
 
 ## Current status
 
-**Phase: v0.1 — interface reconstruction**
+**Phase: v0.1 — interface reconstruction / universal bench definition**
 
 Available documentation is sufficient to establish that the original pocket receiver does not appear to send a proprietary digital pixel bus. The watch receives separate analog video and synchronization signals, together with several supply rails.
 
@@ -47,7 +49,11 @@ Current working interface:
 
 See [docs/interface.md](docs/interface.md) for the evidence model and electrical details.
 
-Candidate source paths are documented in [docs/input-paths.md](docs/input-paths.md). The Game Boy/RP2C02 route is cross-linked in [docs/gameboy-rp2c02-integration.md](docs/gameboy-rp2c02-integration.md); its first sync-completion hardware decision is in [hardware/gameboy-rp2c02-sync-v0.1.md](hardware/gameboy-rp2c02-sync-v0.1.md). The Seiko's analog LVD sampling model is summarized in [docs/lvd-sampling.md](docs/lvd-sampling.md).
+The source-independent station is defined in [hardware/universal-cvbs-bench-v0.1.md](hardware/universal-cvbs-bench-v0.1.md).
+
+Candidate source paths are documented in [docs/input-paths.md](docs/input-paths.md). The Game Boy/RP2C02 route is cross-linked in [docs/gameboy-rp2c02-integration.md](docs/gameboy-rp2c02-integration.md), with its sync-completion decision in [hardware/gameboy-rp2c02-sync-v0.1.md](hardware/gameboy-rp2c02-sync-v0.1.md). The first Raspberry Pi source implementation is [raspberry/zero2w-cvbs-source-v0.1.md](raspberry/zero2w-cvbs-source-v0.1.md).
+
+The Seiko's analog LVD sampling model is summarized in [docs/lvd-sampling.md](docs/lvd-sampling.md).
 
 ## Important rule
 
@@ -56,19 +62,19 @@ No signal is to be applied to an original watch until the corresponding voltage,
 ## Repository structure
 
 - `docs/` — research, signal reconstruction and sources
-- `hardware/` — adapter schematics and PCB work
-- `raspberry/` — playback and composite-video generation
+- `hardware/` — universal test station, adapter schematics and PCB work
+- `raspberry/` — Raspberry Pi playback and composite-video generation
 - `tests/` — oscilloscope captures, test patterns and validation procedures
 - `media/` — original diagrams and assets for documentation/video production
 
 ## Planned milestones
 
 1. **v0.1 — Interface reconstruction**
-2. **v0.2 — Bench electrical emulator**
-3. **v0.3 — Raspberry Pi composite-video prototype**
-4. **v0.4 — First image on the original watch**
-5. **v0.5 — MP4 playback**
-6. **v1.0 — Reproducible hardware/software build**
+2. **v0.2 — Universal CVBS/AV bench**
+3. **v0.3 — Raspberry Pi Zero 2 W source**
+4. **v0.4 — First protected image on the original watch**
+5. **v0.5 — MP4 playback / exhibition mode**
+6. **v1.0 — Reproducible display, diagnostic and integration station**
 
 See [ROADMAP.md](ROADMAP.md).
 
