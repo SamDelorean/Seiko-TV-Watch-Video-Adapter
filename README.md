@@ -1,10 +1,10 @@
 # Seiko TV Watch Video Adapter
 
-Reverse-engineering and hardware/software project to replace the original Seiko TV Watch pocket receiver with a modern video source while keeping the wristwatch itself unmodified.
+Reverse-engineering and hardware/software project for a **modern display, diagnostic and integration station** for the Seiko TV Watch. The project is not intended to permanently replace the original pocket receiver or alter a collectible watch. Instead, it documents the original interface and provides reversible ways to power, test, diagnose, demonstrate and integrate the wrist unit with modern or experimental video sources.
 
 ## Goal
 
-Play modern video files (MP4/H.264 as the first target) on the original Seiko TV Watch LCD through its original external video connector.
+Build a reversible bench/display station around the original Seiko TV Watch connector. The station should support several use cases: preservation-friendly exhibition, electrical diagnosis and repair, interface characterization, test-pattern injection, and experimental connection to modern video sources such as Raspberry Pi or the Game Boy/RP2C02 project. MP4/H.264 playback is one demonstration path, not the sole purpose of the project.
 
 The preferred architecture is:
 
@@ -72,9 +72,22 @@ No signal is to be applied to an original watch until the corresponding voltage,
 
 See [ROADMAP.md](ROADMAP.md).
 
-## Preservation principle
+## Preservation and scope principle
 
-The project is intended to be non-destructive: the watch should remain original and the adapter should emulate the external receiver through the factory connector.
+The original Seiko receiver remains historically significant and is **not treated as obsolete hardware to be permanently replaced**. This project is a companion test/display platform.
+
+The preferred implementation is external, reversible and non-destructive: the watch remains original, the factory connector is used wherever practical, and any modern interface should be removable without altering the collectible unit.
+
+Publishing the reconstructed interface is also intended to make the work useful beyond exhibition. The same electrical information and example interface blocks may support:
+
+- diagnosis of a watch or receiver;
+- repair and restoration work;
+- bench testing without depending on RF broadcast reception;
+- museum or collector display setups;
+- development of reversible modern video-source adapters;
+- experimentation with other compatible NTSC-derived sources.
+
+The repository documents interfaces and implementation ideas rather than prescribing one permanent conversion.
 
 ## Documentation status labels
 
