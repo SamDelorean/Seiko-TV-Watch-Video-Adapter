@@ -47,6 +47,8 @@ Current working interface:
 
 See [docs/interface.md](docs/interface.md) for the evidence model and electrical details.
 
+Candidate source paths are documented in [docs/input-paths.md](docs/input-paths.md). The Game Boy/RP2C02 route is cross-linked in [docs/gameboy-rp2c02-integration.md](docs/gameboy-rp2c02-integration.md), and the Seiko's analog LVD sampling model is summarized in [docs/lvd-sampling.md](docs/lvd-sampling.md).
+
 ## Important rule
 
 No signal is to be applied to an original watch until the corresponding voltage, polarity, impedance and waveform have been verified against an original receiver with an oscilloscope.
