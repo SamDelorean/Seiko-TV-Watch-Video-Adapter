@@ -1,0 +1,4 @@
+generated_patterns/
+logs/
+__pycache__/
+*.pyc
