@@ -157,6 +157,8 @@ standard CVBS
 
 The reported ~8 V DC bias and ~1.5 V video excursion are **working evidence, not frozen design values**.
 
+The detailed transfer-function and calibration design is documented in [`cvbs-to-seiko-level-converter-v0.1.md`](cvbs-to-seiko-level-converter-v0.1.md).
+
 Required test points:
 
 - `TP_VIDEO_AC`
