@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "A00-A07-v0.1",
+  "description": "Initial luminance/clipping diagnostic sequence.",
+  "steps": [
+    {"id": "A00", "duration_s": 5},
+    {"id": "A01", "duration_s": 5},
+    {"id": "A02", "duration_s": 5},
+    {"id": "A03", "duration_s": 8},
+    {"id": "A04", "duration_s": 8},
+    {"id": "A05", "duration_s": 8},
+    {"id": "A06", "duration_s": 8},
+    {"id": "A07", "duration_s": 8}
+  ]
+}
