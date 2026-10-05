@@ -1,6 +1,6 @@
 # CVBS-to-Seiko Video Level Converter — V0.1
 
-Status: **design model frozen / final electrical values pending TR02-01 measurement**
+Status: **transfer model defined / physical implementation intentionally open pending TR02-01 measurement**
 
 ## Purpose
 
@@ -9,7 +9,7 @@ Convert a normal 75-ohm composite-video source into the separate electrical sign
 - pin 5: composite synchronization;
 - pin 6: analog picture signal with the Seiko-required DC operating point and amplitude.
 
-The converter is deliberately **calibratable**. It must not depend on the currently reported ~8 V video bias or ~1.5 V video excursion being exact.
+The converter is deliberately **calibratable**. It must not depend on the currently reported ~8 V operating point or ~1.5 V video excursion being exact, and it must not assume that the original receiver obtains those values by voltage gain. The ~8 V may simply be a DC bias/reference onto which an already suitable video excursion is superimposed.
 
 ## 1. Input reference model
 
@@ -48,9 +48,35 @@ The sign of `ΔVSEIKO` automatically defines picture polarity.
 
 Current independent reports suggest an operating point near 8 V and a video excursion on the order of 1.5 V, but these are provisional only.
 
-## 3. Required transfer function
+## 3. Competing physical interpretations
 
-The video converter is an affine transformation:
+At least three circuit interpretations remain plausible until the original TR02-01 is measured:
+
+### H1 — DC bias / level translation only
+
+```text
+luma(t) -> AC coupling / clamp -> + VBIAS -> pin 6
+```
+
+In this case the picture excursion already has approximately the required amplitude and the receiver mainly establishes a DC operating point near the reported ~8 V.
+
+### H2 — DC bias plus modest gain
+
+```text
+luma(t) -> gain K -> + VBIAS -> pin 6
+```
+
+Here the receiver changes both amplitude and operating point.
+
+### H3 — active level translator / output driver
+
+The output stage may use a transistor or amplifier referenced to one of the receiver rails. Its observed ~8 V level may then be a consequence of that topology rather than a separately generated "8 V bias source."
+
+These hypotheses are electrically different even though all can produce a waveform that looks like a video signal riding on a high DC level.
+
+## 4. Required transfer function
+
+Regardless of implementation, the external behavior can be represented as an affine transformation:
 
 ```text
 G = (VSEIKO_WHITE - VSEIKO_BLACK) / (VIN_WHITE - VIN_BLACK)
@@ -58,13 +84,15 @@ G = (VSEIKO_WHITE - VSEIKO_BLACK) / (VIN_WHITE - VIN_BLACK)
 VOUT = VSEIKO_BLACK + G × (VIN - VIN_BLACK)
 ```
 
-This is the central design equation.
+This equation is a **measurement model**, not proof that the original receiver contains a literal gain stage followed by a summing amplifier.
 
-It separates three independent parameters:
+It separates three observable parameters:
 
-1. **BLACK LEVEL / OFFSET** — `VSEIKO_BLACK`;
-2. **GAIN** — magnitude of `G`;
+1. **BLACK LEVEL / DC OPERATING POINT** — `VSEIKO_BLACK`;
+2. **PICTURE EXCURSION RATIO** — magnitude of `G`;
 3. **POLARITY** — sign of `G`.
+
+If measurement shows `|G| ≈ 1`, the preferred implementation should be a unity-gain bias/level-shift stage, not an unnecessary amplifier.
 
 ### Nominal illustration only
 
@@ -88,7 +116,7 @@ G ≈ -2.14
 
 This is **not** a frozen gain value. Actual A00/A01 measurements replace the nominal 0.70 V assumption.
 
-## 4. Functional video path
+## 5. Functional video path
 
 ```text
 CVBS IN
@@ -106,16 +134,18 @@ DC restoration / keyed clamp
   |
 sync removal / blanking
   |
-polarity-selectable gain stage
+polarity-selectable amplitude stage
   |
-adjustable DC level shift
+(unity gain preferred if measurement permits)
+  |
+adjustable DC bias / level shift
   |
 output buffer + current limiting
   |
 SEIKO PIN 6
 ```
 
-## 5. Why DC restoration is mandatory
+## 6. Why DC restoration is mandatory
 
 CVBS may be AC-coupled. Once AC-coupled, average picture content changes the apparent DC level unless a reference point is restored.
 
@@ -137,7 +167,7 @@ Preferred V0.1 method:
 
 A simple sync-tip diode clamp is acceptable as an early breadboard comparison, but the keyed method is preferred for calibration work.
 
-## 6. Sync removal
+## 7. Sync removal
 
 The Seiko interface separates VID1/sync from VID2/video, so the video output should not intentionally reproduce the negative composite-sync pulse.
 
@@ -153,7 +183,7 @@ An analog switch, clamp or controlled blanking stage can hold the video path at 
 
 The exact blanking strategy remains subject to comparison with the original TR02-01 pin-6 waveform.
 
-## 7. Chroma rejection
+## 8. Chroma rejection
 
 The Seiko display is monochrome.
 
@@ -178,7 +208,7 @@ Rationale:
 
 No final cutoff is frozen before oscilloscope comparison.
 
-## 8. Sync branch
+## 9. Sync branch
 
 The same terminated/buffered CVBS signal feeds an LM1881-class separator.
 
@@ -207,9 +237,9 @@ SEIKO PIN 5
 
 Pin-5 voltage levels remain TO MEASURE.
 
-## 9. Analog supply strategy
+## 10. Analog supply strategy
 
-The video-conditioning amplifier must swing around the Seiko video operating point, potentially around 8 V with an excursion of approximately 1.5 V.
+The video-conditioning output stage must reproduce the Seiko video operating point, potentially around 8 V with an excursion of approximately 1.5 V. It may need voltage gain, unity gain, attenuation, inversion, or only DC translation; this is intentionally left open until the original receiver is measured.
 
 Therefore the video amplifier must **not** be powered only from 3.3 V or 5 V.
 
@@ -228,12 +258,12 @@ The selected amplifier must have:
 
 Component selection is a later increment.
 
-## 10. Controls / calibration points
+## 11. Controls / calibration points
 
 ### Front-panel or internal trims
 
 - `VIDEO LEVEL` — sets `VSEIKO_BLACK`;
-- `VIDEO GAIN` — sets `|G|`;
+- `VIDEO AMPLITUDE` — sets `|G|`; unity gain is preferred if the original receiver shows no meaningful amplitude gain;
 - `VIDEO POLARITY` — positive / negative;
 - `LUMA FILTER` — bypass / filtered.
 
@@ -249,7 +279,7 @@ Component selection is a later increment.
 - `TP_CSYNC_OUT`
 - `TP_VIDEO_REF`
 
-## 11. Calibration procedure
+## 12. Calibration procedure
 
 ### Step 1 — characterize source
 
@@ -292,7 +322,58 @@ Before connecting the wrist unit:
 - verify startup/shutdown transients;
 - verify current-limiting resistor/output buffer behavior.
 
-## 12. Fail-safe behavior
+
+## 13. Distinguishing bias from gain on the real receiver
+
+Use the oscilloscope in both DC- and AC-coupled views.
+
+### DC-coupled measurement
+
+With A00 BLACK, A01 WHITE and A02 50% gray:
+
+- record the absolute pin-6 voltage;
+- identify black level;
+- identify white level;
+- identify the midpoint.
+
+This reveals the operating point and polarity.
+
+### AC-coupled measurement
+
+Repeat the same patterns with the scope channel AC-coupled:
+
+- measure only the picture excursion;
+- compare pin-6 p-p amplitude with the demodulated/source video amplitude at the nearest accessible point in the receiver.
+
+Interpretation:
+
+- same amplitude, large DC shift -> primarily **bias/level translation**;
+- larger amplitude on pin 6 -> **gain + bias**;
+- smaller amplitude on pin 6 -> **attenuation + bias**.
+
+### No-signal measurement
+
+Also record pin 6 with:
+
+- receiver powered but no RF/video;
+- valid sync but black picture;
+- full black raster.
+
+If the ~8 V level remains with no picture content, that is strong evidence that it is a DC operating bias/reference rather than the result of amplification.
+
+### Schematic/topology evidence
+
+If the receiver can be traced safely, look specifically for:
+
+- coupling capacitor feeding pin-6 driver;
+- resistor divider or reference establishing a DC operating point;
+- emitter/source follower;
+- collector/drain load tied to the ~8.9 V rail;
+- op-amp/transistor stage with explicit gain-setting resistors.
+
+This topology evidence should be used together with waveform measurements before choosing the final adapter circuit.
+
+## 14. Fail-safe behavior
 
 Preferred loss-of-video state:
 
@@ -302,7 +383,7 @@ Preferred loss-of-video state:
 
 Final fail-safe levels remain TO MEASURE.
 
-## 13. What is already fixed vs still open
+## 15. What is already fixed vs still open
 
 ### Fixed architecture
 
@@ -311,7 +392,7 @@ Final fail-safe levels remain TO MEASURE.
 - LM1881-derived synchronization;
 - restored/clamped video reference;
 - separate video and sync outputs;
-- affine gain + offset conversion;
+- affine external behavior, implemented with the minimum necessary amplitude change plus DC bias/translation;
 - selectable polarity;
 - selectable chroma filtering;
 - protected outputs.
