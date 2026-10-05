@@ -47,7 +47,7 @@ Current working interface:
 
 See [docs/interface.md](docs/interface.md) for the evidence model and electrical details.
 
-Candidate source paths are documented in [docs/input-paths.md](docs/input-paths.md). The Game Boy/RP2C02 route is cross-linked in [docs/gameboy-rp2c02-integration.md](docs/gameboy-rp2c02-integration.md), and the Seiko's analog LVD sampling model is summarized in [docs/lvd-sampling.md](docs/lvd-sampling.md).
+Candidate source paths are documented in [docs/input-paths.md](docs/input-paths.md). The Game Boy/RP2C02 route is cross-linked in [docs/gameboy-rp2c02-integration.md](docs/gameboy-rp2c02-integration.md); its first sync-completion hardware decision is in [hardware/gameboy-rp2c02-sync-v0.1.md](hardware/gameboy-rp2c02-sync-v0.1.md). The Seiko's analog LVD sampling model is summarized in [docs/lvd-sampling.md](docs/lvd-sampling.md).
 
 ## Important rule
 
