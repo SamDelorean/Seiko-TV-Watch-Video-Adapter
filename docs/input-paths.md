@@ -1,6 +1,6 @@
 # Candidate video-input paths
 
-This project will evaluate three source paths against the same Seiko receiver-emulation interface.
+This project will evaluate three source paths against the same reversible Seiko test/display interface. These paths are intended for bench work, diagnosis, exhibition and experimentation; they are not presented as a permanent replacement for the original receiver.
 
 ## A. Game Boy / RP2C02 path
 
