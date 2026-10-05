@@ -59,9 +59,9 @@ Work items:
 - playback controls;
 - clean startup/shutdown.
 
-## v1.0 — Reproducible adapter
+## v1.0 — Reproducible display and test station
 
-Goal: documented hardware/software package that another technically competent builder can reproduce without modifying the watch.
+Goal: documented hardware/software package that another technically competent builder can reproduce as a reversible Seiko TV Watch display, diagnostic and integration station without modifying the watch or treating the original receiver as disposable.
 
 Deliverables:
 - final schematic;
@@ -71,4 +71,6 @@ Deliverables:
 - Raspberry Pi image/configuration;
 - setup instructions;
 - validation procedure;
-- demonstration video.
+- demonstration video;
+- diagnostic/test usage notes;
+- clearly documented reversible connection methods for collectors and repair work.
