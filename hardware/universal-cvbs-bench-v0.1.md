@@ -114,6 +114,8 @@ CVBS_BUFFERED
 
 The LM1881 is selected as the first bench candidate because it extracts composite sync directly from standard NTSC/PAL-like composite video.
 
+The standalone first-build bench circuit is documented in [`lm1881-test-circuit-v0.1.md`](lm1881-test-circuit-v0.1.md) and follows TI's Typical Connection Diagram before any Seiko-specific output-level adaptation.
+
 Required test points:
 
 - `TP_SYNC_RAW`
