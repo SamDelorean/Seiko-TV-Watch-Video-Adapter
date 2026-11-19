@@ -763,3 +763,19 @@ These are unresolved because they require measurements, not because they were fo
 ## 30. Rule for future ideas
 
 Any new architectural idea, discarded alternative, safety constraint or test concept that materially changes the project should be added to Git documentation rather than left only in chat history.
+
+---
+
+## 31. Original cable preservation and replication
+
+The original Seiko receiver-to-watch cable is now explicitly treated as an **irreplaceable historical reference part**.
+
+It will **not** be sent to a manufacturer or used as a destructive reverse-engineering sample. Replication will be performed from non-destructive measurements and a controlled manufacturing package.
+
+The intended package contains a dimensioned cable drawing, STEP/DXF connector geometry, pin-to-pin wire list, BOM and acceptance-test specification. Initial manufacturing will be limited to a small prototype batch, validated before any series order.
+
+The cable-specific workstream is documented in:
+
+`docs/cable-replication-manufacturing-package-v0.1.md`
+
+This preservation rule has the same priority as the existing rule that the wrist unit remain unmodified wherever practical.
